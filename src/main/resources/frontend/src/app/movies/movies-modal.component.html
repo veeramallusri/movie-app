@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{movie.id ? 'Modify' : 'Add'}} Movie</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #f="ngForm" name="form">
+    <div class="form-group">
+      <label for="titleInput">Title</label>
+      <input type="text" class="form-control" name="title" id="titleInput" [(ngModel)]="movie.title">
+    </div>
+    <div class="form-group">
+      <label for="formatSelect">Format</label>
+      <select class="form-control" name="format" id="formatSelect" [(ngModel)]="movie.format">
+        <option selected value="undefined">Choose...</option>
+        <option value="VHS">VHS</option>
+        <option value="DVD">DVD</option>
+        <option value="STREAMING">Streaming</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="lengthInput">Length (minutes)</label>
+      <input type="text" class="form-control" name="length" id="lengthInput" placeholder="1 - 499" [(ngModel)]="movie.length">
+    </div>
+    <div class="form-group">
+      <label for="releaseYearInput">Release Year</label>
+      <input type="text" class="form-control" name="releaseYear" id="releaseYearInput" placeholder="1801 - 2099" [(ngModel)]="movie.releaseYear">
+    </div>
+    <div class="form-group">
+      <label for="ratingInput">Rating</label>
+      <input type="text" class="form-control" name="rating" id="ratingInput" placeholder="1 - 5" [(ngModel)]="movie.rating">
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="save()">Submit</button>
+</div>
