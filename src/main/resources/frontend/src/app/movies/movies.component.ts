@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
+import { MovieLengthRenderComponent } from './movie-length-render.component';
 import { MoviesService } from '../services/movies.service';
 
 @Component({
@@ -39,7 +40,9 @@ export class MoviesComponent implements OnInit {
         }
       },
       length: {
-        title: 'Length'
+        title: 'Length',
+        type: 'custom',
+        renderComponent: MovieLengthRenderComponent
       },
       releaseYear: {
         title: 'Release Year'
