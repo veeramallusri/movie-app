@@ -14,6 +14,10 @@ export class MoviesService {
     return this.http.get('/api/movies').map(response => response.json());
   }
 
+  getSortedMovies(field: string, direction: string) {
+    return this.http.get(`/api/movies/${field}/${direction}`).map(response => response.json());
+  }
+
   createMovie(movie: Movie) {
     return this.http.post('/api/movies/create', movie).map(response => response.json());
   }

@@ -1,36 +1,92 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { LocalDataSource } from 'ng2-smart-table';
 
 import { MoviesService } from '../services/movies.service';
-import { MoviesModalComponent } from './movies-modal.component';
-import { Movie } from '../models/movie';
 
 @Component({
   templateUrl: './movies.component.html',
 })
 export class MoviesComponent implements OnInit {
 
-  movies: Movie[] = [];
+  settings = {
+    delete: {
+      deleteButtonContent: '<i class="btn btn-sm btn-danger fa fa-times"></i>',
+      confirmDelete: true,
+    },
+    add: {
+      addButtonContent: '<i class="btn btn-primary fa fa-plus"></i>',
+      createButtonContent: '<i class="btn btn-sm btn-success fa fa-save"></i>',
+      cancelButtonContent: '<i class="btn btn-sm btn-danger fa fa-times"></i>',
+      confirmCreate: true,
+    },
+    edit: {
+      editButtonContent: '<i class="btn btn-sm btn-info fa fa-cog"></i>',
+      saveButtonContent: '<i class="btn btn-sm btn-success fa fa-save"></i>',
+      cancelButtonContent: '<i class="btn btn-sm btn-danger fa fa-times"></i>',
+      confirmSave: true,
+    },
+    columns: {
+      title: {
+        title: 'Title'
+      },
+      format: {
+        title: 'Format',
+        editor: {
+          type: 'list',
+          config: {
+            list: [{ value: 'VHS', title: 'VHS' }, { value: 'DVD', title: 'DVD' }, { value: 'STREAMING', title: 'Streaming' }]
+          }
+        }
+      },
+      length: {
+        title: 'Length'
+      },
+      releaseYear: {
+        title: 'Release Year'
+      },
+      rating: {
+        title: 'Rating'
+      }
+    }
+  };
 
-  constructor(private modalService: NgbModal, private moviesService: MoviesService) { }
+  err: any;
 
-  ngOnInit() {
-    this.moviesService.getMovies().subscribe(movies => this.movies = movies);
+  source: LocalDataSource;
+
+  constructor(private moviesService: MoviesService) {
+    this.source = new LocalDataSource();
   }
 
-  showModal(movie) {
-    const modalRef = this.modalService.open(MoviesModalComponent);
-    modalRef.componentInstance.movie = movie ? { ...movie } : new Movie();
-    modalRef.result.then(result => {
-      if (!result) return;
-      const index = this.movies.findIndex(movie => movie.id === result.id);
-      if (index != -1) this.movies[index] = result;
-      else this.movies.push(result);
+  ngOnInit() {
+    this.moviesService.getMovies().subscribe(movies => this.source.load(movies));
+  }
+
+  onCreateConfirm(event) {
+    this.err = null;
+    const movie = event.newData;
+    this.moviesService.createMovie(movie).subscribe(() => event.confirm.resolve(movie), err => {
+      this.err = err;
+      event.confirm.reject()
     });
   }
 
-  deleteMovie(id: number) {
-    this.moviesService.deleteMovie(id).subscribe(() => this.movies = this.movies.filter(movie => movie.id !== id));
+  onSaveConfirm(event) {
+    this.err = null;
+    const movie = event.newData;
+    this.moviesService.updateMovie(movie).subscribe(() => event.confirm.resolve(movie), err => {
+      this.err = err;
+      event.confirm.reject()
+    });
+  }
+
+  onDeleteConfirm(event) {
+    this.err = null;
+    const movie = event.data;
+    this.moviesService.deleteMovie(movie.id).subscribe(() => event.confirm.resolve(movie), err => {
+      this.err = err;
+      event.confirm.reject()
+    });
   }
 
 }

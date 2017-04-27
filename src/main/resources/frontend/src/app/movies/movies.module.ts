@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { MoviesService } from '../services/movies.service';
 import { MoviesComponent } from './movies.component';
-import { MoviesModalComponent } from './movies-modal.component';
 
 @NgModule({
   imports: [
@@ -18,10 +17,9 @@ import { MoviesModalComponent } from './movies-modal.component';
     RouterModule.forChild([
       { path: '', component: MoviesComponent }
     ]),
-    NgbModule.forRoot()
+    Ng2SmartTableModule,
   ],
-  declarations: [MoviesComponent, MoviesModalComponent],
-  entryComponents: [MoviesModalComponent],
+  declarations: [MoviesComponent],
   providers: [MoviesService]
 })
 export class MoviesModule { }
