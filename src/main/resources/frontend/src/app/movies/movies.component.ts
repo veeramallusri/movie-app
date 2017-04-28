@@ -68,8 +68,14 @@ export class MoviesComponent implements OnInit {
   onCreateConfirm(event) {
     this.err = null;
     const movie = event.newData;
+    // Need to validate format here. Backend cannot deserialize empty string to enum.
+    if (!movie.format) {
+      this.err = 'Movie format required';
+      event.confirm.reject();
+      return;
+    }
     this.moviesService.createMovie(movie).subscribe(() => event.confirm.resolve(movie), err => {
-      this.err = err;
+      this.err = err.json();
       event.confirm.reject()
     });
   }
@@ -78,7 +84,7 @@ export class MoviesComponent implements OnInit {
     this.err = null;
     const movie = event.newData;
     this.moviesService.updateMovie(movie).subscribe(() => event.confirm.resolve(movie), err => {
-      this.err = err;
+      this.err = err.json();
       event.confirm.reject()
     });
   }

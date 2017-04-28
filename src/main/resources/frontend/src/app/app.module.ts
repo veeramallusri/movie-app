@@ -16,7 +16,7 @@ const ROUTES = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES)
   ],
   bootstrap: [AppComponent]
 })

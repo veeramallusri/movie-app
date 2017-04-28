@@ -18,7 +18,7 @@ import { MovieLengthRenderComponent } from './movie-length-render.component';
     RouterModule.forChild([
       { path: '', component: MoviesComponent }
     ]),
-    Ng2SmartTableModule,
+    Ng2SmartTableModule
   ],
   declarations: [MoviesComponent, MovieLengthRenderComponent],
   providers: [MoviesService],

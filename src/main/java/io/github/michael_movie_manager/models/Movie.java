@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Movie {
@@ -20,18 +18,20 @@ public class Movie {
     private long id;
 
     @NotNull
-    @Length(min = 1, max = 50)
+    @Size(min = 1, max = 50)
     private String title;
 
     @NotNull
     private MovieFormatEnum format;
 
     @NotNull
-    @Range(min = 1, max = 499)
+    @Min(1)
+    @Max(499)
     private int length;
 
     @NotNull
-    @Range(min = 1801, max = 2099)
+    @Min(1801)
+    @Max(2099)
     private int releaseYear;
 
     @Min(1)

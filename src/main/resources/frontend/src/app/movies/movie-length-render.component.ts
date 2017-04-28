@@ -3,9 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
 
 @Component({
-  template: `
-    {{renderValue}}
-  `,
+  template: `{{renderValue}}`
 })
 export class MovieLengthRenderComponent implements ViewCell, OnInit {
 
