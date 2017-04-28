@@ -7,7 +7,9 @@ import { HttpModule } from '@angular/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { MoviesService } from '../services/movies.service';
+import { MovieComponent } from './movie.component';
 import { MoviesComponent } from './movies.component';
+import { MovieExistsGuard } from '../guards/movie-exists';
 import { MovieLengthRenderComponent } from './movie-length-render.component';
 
 @NgModule({
@@ -16,12 +18,14 @@ import { MovieLengthRenderComponent } from './movie-length-render.component';
     FormsModule,
     HttpModule,
     RouterModule.forChild([
-      { path: '', component: MoviesComponent }
+      { path: '', component: MoviesComponent },
+      { path: 'new', component: MovieComponent },
+      { path: ':movieId', canActivate: [MovieExistsGuard], component: MovieComponent }
     ]),
     Ng2SmartTableModule
   ],
-  declarations: [MoviesComponent, MovieLengthRenderComponent],
-  providers: [MoviesService],
+  declarations: [MovieComponent, MoviesComponent, MovieLengthRenderComponent],
+  providers: [MoviesService, MovieExistsGuard],
   entryComponents: [MovieLengthRenderComponent]
 })
 export class MoviesModule { }

@@ -1,0 +1,37 @@
+<div *ngIf="err" class="mt-3 alert alert-danger">
+  <strong>Error!</strong>
+  <p *ngIf="!err.errors">{{err}}</p>
+  <ul class="list-group" *ngIf="err.errors">
+    <li *ngFor="let error of err.errors" class="list-group-item">{{error.field + " : " + error.defaultMessage}}</li>
+  </ul>
+</div>
+
+<h2>{{movie.id ? 'Modify' : 'Add'}} Movie</h2>
+<form #f="ngForm" name="form" class="pb-3">
+  <div class="form-group">
+    <label for="titleInput">Title</label>
+    <input type="text" class="form-control" name="title" id="titleInput" [(ngModel)]="movie.title">
+  </div>
+  <div class="form-group">
+    <label for="formatSelect">Format</label>
+    <select class="form-control" name="format" id="formatSelect" [(ngModel)]="movie.format">
+      <option selected value="undefined">Choose...</option>
+      <option value="VHS">VHS</option>
+      <option value="DVD">DVD</option>
+      <option value="STREAMING">Streaming</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="lengthInput">Length (minutes)</label>
+    <input type="text" class="form-control" name="length" id="lengthInput" placeholder="1 - 499" [(ngModel)]="movie.length">
+  </div>
+  <div class="form-group">
+    <label for="releaseYearInput">Release Year</label>
+    <input type="text" class="form-control" name="releaseYear" id="releaseYearInput" placeholder="1801 - 2099" [(ngModel)]="movie.releaseYear">
+  </div>
+  <div class="form-group">
+    <label for="ratingInput">Rating</label>
+    <input type="text" class="form-control" name="rating" id="ratingInput" placeholder="1 - 5" [(ngModel)]="movie.rating">
+  </div>
+  <button type="button" class="btn btn-primary" (click)="save()">Submit</button>
+</form>

@@ -14,6 +14,10 @@ export class MoviesService {
     return this.http.get('/api/movies').map(response => response.json());
   }
 
+  getMovie(id: number) {
+    return this.http.get(`/api/movies/${id}`).map(response => response.json());
+  }
+
   createMovie(movie: Movie) {
     return this.http.post('/api/movies/create', movie).map(response => response.json());
   }

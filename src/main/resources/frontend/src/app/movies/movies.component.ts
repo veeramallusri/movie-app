@@ -28,7 +28,11 @@ export class MoviesComponent implements OnInit {
     },
     columns: {
       title: {
-        title: 'Title'
+        title: 'Title',
+        type: 'html',
+        valuePrepareFunction: (value, row) => {
+          return `<a href="/movies/${row.id}">${value}</a>`;
+        }
       },
       format: {
         title: 'Format',

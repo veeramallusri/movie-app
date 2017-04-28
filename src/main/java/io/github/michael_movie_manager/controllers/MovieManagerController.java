@@ -25,6 +25,11 @@ public class MovieManagerController {
     public Iterable<Movie> getMovies() {
         return movieRepository.findAll();
     }
+    
+    @RequestMapping(value = "{id}")
+    public Movie getMovie(@PathVariable Long id) {
+        return movieRepository.findOne(id);
+    }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public Movie createMovie(@Valid @RequestBody Movie movie) {
