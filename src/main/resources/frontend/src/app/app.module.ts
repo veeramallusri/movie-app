@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { GoogleSignInComponent } from './components/google.component';
 
 const ROUTES = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
@@ -12,7 +13,8 @@ const ROUTES = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GoogleSignInComponent
   ],
   imports: [
     BrowserModule,
