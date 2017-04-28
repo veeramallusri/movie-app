@@ -11475,7 +11475,7 @@ var MoviesComponent = (function () {
             event.confirm.reject();
             return;
         }
-        this.moviesService.createMovie(movie).subscribe(function () { return event.confirm.resolve(movie); }, function (err) {
+        this.moviesService.createMovie(movie).subscribe(function (movie) { return event.confirm.resolve(movie); }, function (err) {
             _this.err = err.json();
             event.confirm.reject();
         });

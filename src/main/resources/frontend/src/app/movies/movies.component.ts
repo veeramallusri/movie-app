@@ -78,7 +78,7 @@ export class MoviesComponent implements OnInit {
       event.confirm.reject();
       return;
     }
-    this.moviesService.createMovie(movie).subscribe(() => event.confirm.resolve(movie), err => {
+    this.moviesService.createMovie(movie).subscribe(movie => event.confirm.resolve(movie), err => {
       this.err = err.json();
       event.confirm.reject()
     });
