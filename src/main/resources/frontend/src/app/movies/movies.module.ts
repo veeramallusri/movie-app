@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
+import { CustomFormsModule } from 'ng2-validation'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { MoviesService } from '../services/movies.service';
@@ -17,6 +18,7 @@ import { MovieLengthRenderComponent } from './movie-length-render.component';
     CommonModule,
     FormsModule,
     HttpModule,
+    CustomFormsModule,
     RouterModule.forChild([
       { path: '', component: MoviesComponent },
       { path: 'new', component: MovieComponent },

@@ -7,31 +7,36 @@
 </div>
 
 <h2>{{movie.id ? 'Modify' : 'Add'}} Movie</h2>
-<form #f="ngForm" name="form" class="pb-3">
-  <div class="form-group">
+<form #f="ngForm" name="form" class="pb-3" (ngSubmit)="f.form.valid && save()">
+  <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && title.errors }">
     <label for="titleInput">Title</label>
-    <input type="text" class="form-control" name="title" id="titleInput" [(ngModel)]="movie.title">
+    <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="movie.title" required minlength="1" maxlength="50">
+    <div *ngIf="f.submitted && title.errors" class="form-control-feedback">Must be between 1 and 50 characters</div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && format.errors }">
     <label for="formatSelect">Format</label>
-    <select class="form-control" name="format" id="formatSelect" [(ngModel)]="movie.format">
+    <select class="form-control" name="format" #format="ngModel" [(ngModel)]="movie.format" required>
       <option selected value="undefined">Choose...</option>
       <option value="VHS">VHS</option>
       <option value="DVD">DVD</option>
       <option value="STREAMING">Streaming</option>
     </select>
+    <div *ngIf="f.submitted && format.errors" class="form-control-feedback">Required</div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && length.errors }">
     <label for="lengthInput">Length (minutes)</label>
-    <input type="text" class="form-control" name="length" id="lengthInput" placeholder="1 - 499" [(ngModel)]="movie.length">
+    <input type="number" class="form-control" name="length" #length="ngModel" placeholder="1 - 499" [(ngModel)]="movie.length" required [min]="1" [max]="499">
+    <div *ngIf="f.submitted && length.errors" class="form-control-feedback">Must be between 1 and 499</div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && releaseYear.errors }">
     <label for="releaseYearInput">Release Year</label>
-    <input type="text" class="form-control" name="releaseYear" id="releaseYearInput" placeholder="1801 - 2099" [(ngModel)]="movie.releaseYear">
+    <input type="number" class="form-control" name="releaseYear" #releaseYear="ngModel" placeholder="1801 - 2099" [(ngModel)]="movie.releaseYear" required [min]="1801" [max]="2099">
+    <div *ngIf="f.submitted && releaseYear.errors" class="form-control-feedback">Must be between 1801 and 2099</div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && rating.errors }">
     <label for="ratingInput">Rating</label>
-    <input type="text" class="form-control" name="rating" id="ratingInput" placeholder="1 - 5" [(ngModel)]="movie.rating">
+    <input type="number" class="form-control" name="rating" #rating="ngModel" placeholder="1 - 5" [(ngModel)]="movie.rating" [min]="1" [max]="5">
+    <div *ngIf="f.submitted && rating.errors" class="form-control-feedback">Must be between 1 and 5</div>
   </div>
-  <button type="button" class="btn btn-primary" (click)="save()">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
